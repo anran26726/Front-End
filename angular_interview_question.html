@@ -1,0 +1,69 @@
+Angular Interview Questions
+
+
+1. Why were client-side frameworks like Angular introduced? (为什么引入angular框架)  (angular框架的优点) (angular框架优化/解决了哪些问题)
+
+Client-side frameworks allow one to develop advanced web applications like Single-Page-Application
+
+2. How does an Angular application work?
+
+Every Angular app consists of a file named angular.json. This file will contain all the configurations of the app. While building the app, the builder looks at this file to find the entry point of the application
+
+3. What are directives in Angular?
+
+A directive is a class in Angular that is declared with a @Directive decorator.
+Every directive has its own behavior and can be imported into various components of an application.
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class</title>
+</head>
+<body>
+    <style></style>
+    <script>
+
+        /** 
+         * call() apply() bind() -- 是函数方法
+         * 等同于数组的 forEach slice splice sort 等
+         */
+
+        var name = 'name';
+        
+        function fun(a, b) {
+            console.log(this.name);
+            console.log('a', a);
+            console.log('b', b);
+        }
+
+        fun(); // 
+        fun.call(); // 等同于 fun(); this指向window
+        fun.apply(); // 
+
+        /** 
+         * 当通过调用call apply时，可以传入一个参数，则this将指向这个参数
+        */
+
+        var obj = {
+            name: 'obj',
+            sayName: function() {
+                console.log(this.name)
+            }
+        };
+        var obj2 = {name: 'obj2'};
+
+        fun.call(obj); // obj undefined undefined
+        fun.apply(obj2); // obj2 undefined undefined
+        obj.sayName(); // obj
+        obj.sayName.apply(obj2); // obj2
+
+        fun.call(obj, 2, 3); // obj 2 3
+        fun.apply(obj2, 2, 3); // Uncaught TypeError
+        fun.apply(obj2, [2, 3]); // apply需要将实参封装到数组中一起传入
+
+    </script>
+</body>
+</html>

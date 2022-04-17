@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM</title>
+</head>
+<body>
+    <button id='btn'>This is a button</button>
+    <style>
+    </style>
+    <script>
+        /** 
+         * Document Object Model
+        */
+        var btn = document.getElementById('btn');
+
+        console.log(btn);
+        console.log(btn.innerHTML); // 获取/修改 标签体内容
+        
+        btn.innerHTML = "I'm a button"; 
+
+
+    </script>
+</body>
+</html>

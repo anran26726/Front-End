@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class</title>
+</head>
+<body>
+    <style></style>
+    <script>
+
+        function createObj(param1, param2, param3) {
+            let obj = new Object();
+
+            obj.param1 = param1;
+            obj.param2 = param2;
+            obj.param3 = param3;
+            obj.fun = function() {
+                console.log(this.param3);
+            }
+
+            return obj;
+        }
+
+        let obj1 = createObj(1, 2, 3);
+        console.log(obj1 instanceof createObj) // false
+
+        /**
+         * 构造函数 (class)
+         */
+
+        function CreateObj(param1, param2, param3) {
+            // let obj = new Object();
+            this.param1 = param1;
+            this.param2 = param2;
+            this.param3 = param3;
+            this.fun = function() {
+                console.log(this.param3);
+            }
+            // return obj;
+        }
+
+        let obj2 = new CreateObj(1, 2, 3);
+        console.log(obj2 instanceof CreateObj) // true
+
+        /** 
+         * 
+         */
+
+        
+
+    </script>
+</body>
+</html>

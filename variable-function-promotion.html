@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class</title>
+</head>
+<body>
+    <style></style>
+    <script>
+        /** 
+         * 变量提升
+         */
+
+        (function() {
+            a = 5; // 这里的a没有通过var声明，这种情况a是全局变量，所以window上a是有值的
+            console.log(window.a); // 5 
+        })();
+
+        // 
+
+        (function() {
+            a = 5; // 这里的a是局部变量，所以window上是没有a的
+            console.log(window.a); // undefined
+            var a = 10;
+            console.log(a); // 10
+        })();
+        // =>
+        (function() {
+            var a;
+            let b;
+            a = 5;
+            console.log(window.a); // undefined // 因为closure 所以window上a这个变量是没有被赋值的
+            a = 10;
+            console.log(a);
+            console.log(window.b) // undefined
+        })();
+
+        function test() {
+            console.log(1, foo);
+            console.log(2, bar);
+            var foo = 'Hello';
+            console.log(3, foo);
+            var bar = function() {
+                return 'world';
+            }
+            function foo() {
+                return 'hello';
+            }
+        }
+        // =>
+        // 函数声明的优先级高于变量
+        function test() {
+            function foo() {
+                return 'hello';
+            }
+            var foo;
+            var bar;
+            console.log(1, foo); // 1, function foo() { return 'hello'; }
+            console.log(2, bar); // 2, undefined
+            console.log(2, foo()); // 2, hello
+            foo = 'Hello';
+            console.log(3, foo); // 3, Hello
+            console.log(4, foo()); // TypeError foo is not a function
+            bar = function() {
+                return 'world';
+            }
+            console.log(5, bar) // 5, function() { return 'world'; }
+        }
+
+        test();
+
+    </script>
+</body>
+</html>

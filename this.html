@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>This</title>
+</head>
+<body>
+    <style>
+        span {
+            display: inline-block;
+            width: 80px;
+        }
+    </style>
+    <script>
+        /** this相关知识点
+         *  1. this指向调用方程的对象
+         *  2. call -> 改变this指向
+         *  3. 箭头函数的this指向再上一个函数作用域
+         *  4. 箭头函数的this在函数定义的那一刻就确定了，且无法再被更改
+        */
+        var name = 'window';
+
+        var person1 = {
+            name: 'person1',
+            show1: function() {
+                console.log(this.name);
+            },
+            show2: () => console.log(this.name),
+            show3: function() {
+                return function () {
+                    console.log(this);
+                }
+            },
+            show4: function() {
+                return () => console.log(this.name);
+            }
+        };
+
+        var person2 = {
+            name: 'person2',
+            // show1: function() {
+            //     console.log(this.name);
+            // },
+            // show2: () => console.log(this.name),
+            // show3: function() {
+            //     return function () {
+            //         console.log(this);
+            //     }
+            // },
+            // show4: function() {
+            //     return () => console.log(this.name);
+            // }
+        };
+
+        person1.show1(); // person1 // this指向调用方程的对象 因此指向的是person1里的name（如果person1里没有name 结果则是undefined）
+        person1.show1.call(person2); // person2 // call的作用：改变this的指向
+        
+        person1.show2(); // window // 因为是箭头函数 剪头函数的this指向与常规函数不同（箭头函数的this总是指向再外一层的对象）箭头函数的this在定义时就决定了且无法再被更改
+        person1.show2.call(person2); // window
+
+        person1.show3(); // 什么都不会打印，因为show3()执行后 return 得到的是一个function 但这个function并没有被执行 因此里面的打印语句也不会被执行
+        person1.show3()(); // window: {...} // var fn = person1.show3(); fn() -> window.fn();
+        person1.show3().call(person2); // person2: {...} // var fn = person1.show3(); fn.call(person2) -> window.fn.call(person2);
+        person1.show3.call(person2)(); // window: {...} // var fn = person1.show3.call(person2); fn() -> window.fn();
+
+        person1.show4(); // 不会打印，因为没有执行return后的方程
+        person1.show4()(); // person1 // var fn = person1.show4(); fn() -> person1.fn();
+        // var fn = person1.show4(); 
+        // show4这个方程执行的时候 show4 的 this -> person1 
+        // show4 执行完成以后return的时候 声明了箭头函数，此时生成了箭头函数的 this -> person1
+        // fn.call(person2) -> person1.fn.call(person2); 
+        // 因为return的是一个箭头函数，箭头函数的this定义的时候就决定了所以执行的时候this指向不会被更改
+        person1.show4().call(person2); // person1
+        // var fn = person1.show4.call(person2); show4这个方程执行的时候（即call的时候） this -> person2
+        // fn() -> person2.fn();
+        person1.show4.call(person2)(); // person1 x person2 
+
+    </script>
+</body>
+</html>

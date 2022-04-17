@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<!-- <head>
+    <title>HomeWork2</title>
+    <div>
+        Write a JavaScript program to display the current day and time in the following format. 
+        Sample Output : Today is : Friday
+        Current time is : 4 PM : 50 : 22
+    </div>
+</head> -->
+<body>
+    <p id="date"></p>
+    <p id="time"></p>
+
+    <style>
+
+    </style>
+    <script>
+        var date = new Date();
+        var day = date.getDay();
+        var time = date.getTime();
+
+        function transDay(day) {
+            if (day === 1) return 'Monday';
+            if (day === 2) return 'Tuesday';
+            if (day === 3) return 'Wednesday';
+            if (day === 4) return 'Thursday';
+            if (day === 5) return 'Friday';
+            if (day === 6) return 'Saturday';
+            if (day === 7) return 'Sunday';
+
+            return 'not found';
+        }
+
+        document.getElementById('date').innerHTML = 'Today is ' + date.transDay();
+        document.getElementById('time').innerHTML = 'Current time is ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+    </script>
+</body>
+</html>

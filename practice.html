@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        span {
+            display: inline-block;
+            width: 80px;
+        }
+    </style>
+    <script>
+        // setTimeout(() => console.log(2), 0);
+
+        // new Promise((resolve, reject) => {
+        //   console.log(3);
+        //   resolve(1);
+        // }).then(i => {
+        //   console.log(i);
+        //   Promise.resolve().then(() => console.log(4))
+        // });
+
+        // console.log(5);
+
+        // var n = 1;
+        // console.log(n++)
+        // console.log(n)
+
+        // for (let i = 1; i < 10; i++) {
+        //     for (let j = 1; j < i + 1; j++) {
+        //         document.write("<span>"+j+"*"+i+"="+i*j+"</span>");
+        //     }
+
+        //     document.write("<br/>");
+        // }
+
+        /** 
+         * 打印1～100之间所有的质数
+        */
+        // function printPrimeNum() {
+        //     for (let i = 2; i < 101; i++) {
+        //         let isPrimeNum = true;
+
+        //         for (let j = 2; j < i; j++) {
+        //             if (i % j === 0) {
+        //                 isPrimeNum = false;
+        //             }
+        //         }
+
+        //         if (isPrimeNum) {
+        //             console.log(i);
+        //         }
+        //     }
+        // }
+        
+        // printPrimeNum();
+
+        /**
+         * break 循环立即结束 只对当前block产生影响
+         * continue 结束本轮循环进入下一轮
+        */
+
+
+        // class C {
+        //     f () {
+        //         this.setState({}, () => console.log(1))
+        //         setTimeout(() => console.log(2), 0);
+        //     }
+        // }
+
+        // function Foo() {
+        //     f = function(){ console.log(1); };
+        //     return this;
+        // }
+        // Foo.f = function() { console.log(2); };
+        // Foo.prototype.f = function(){ console.log(3); };
+
+        // f(); // ??? 4
+
+        // var f = function() { console.log(4); };
+        // function f(){ console.log(5); } 
+
+        // Foo.f(); // ??? 2
+        // f(); // ??? 5
+        // Foo().f(); // ???
+        // f(); // ???
+        // new (Foo.f)(); // ???
+        // (new Foo()).f(); // ???
+
+        // console.time();
+        // const list = [1, 2, 3];
+        // const square = num => {
+        //     return (function(n) {
+        //         return new Promise((resolve, reject) => {
+        //             setTimeout(() => {
+        //                 resolve(n * n);
+        //             }, 1000);
+        //         });
+        //     })(num);
+        // }
+        // function test() {
+        //     list.forEach(async x => {
+        //         const res = await square(x);
+        //         console.timeEnd();
+        //         console.log(res);
+        //     });
+        // }
+        // test();
+
+
+    var longestPalindrome = function(s) {    
+        let palindromic = [];
+        if(s.length < 2) return s;
+        
+        for (let len = s.length; len > 0; len-- ) {
+            for (let start = 0; start < len - 1; start++) {
+                let left = start;
+                let right = start + len - 1;
+                
+                while(left < right) {
+                    if (isPalindromic(s[left], s[right])) {
+                        palindromic[left] = s[left];
+                        palindromic[right] = s[right];
+                        left++;
+                        right--;
+                    } else {
+                        palindromic = [];
+                    }
+                }
+                
+                if(left >= right) {
+                    console.log(palindromic);
+                }
+            }
+        }
+        
+        return "";
+    };
+
+    const isPalindromic = (leftValue, rightValue) => {
+        if (leftValue === rightValue) return true;
+        return false;
+    }
+
+    longestPalindrome('aabcdcba');
+
+    </script>
+</body>
+</html>

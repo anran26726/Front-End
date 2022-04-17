@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class</title>
+</head>
+<body>
+    <style></style>
+    <script>
+
+        function createObj(param1, param2, param3) {
+            let obj = new Object();
+
+            obj.param1 = param1;
+            obj.param2 = param2;
+            obj.param3 = param3;
+            obj.fun = function() {
+                console.log(this.param3);
+            }
+
+            return obj;
+        }
+
+        let obj1 = createObj(1, 2, 3);
+        console.log(obj1 instanceof createObj) // false
+
+        /**
+         * 构造函数 (class)
+         */
+
+        function CreateObj(param1, param2, param3) {
+            // let obj = new Object();
+            this.param1 = param1;
+            this.param2 = param2;
+            this.param3 = param3;
+            this.fun = function() {
+                console.log(this.param3);
+            }
+            // return obj;
+        }
+
+        let obj2 = new CreateObj(1, 2, 3);
+        console.log(obj2 instanceof CreateObj) // true
+
+        /** 
+         * Date()
+         */
+
+        // 创建一个Date对象
+        var date1 = new Date(); // 创建为当前代码的执行时间
+        console.log(date1);
+
+        // 创建一个指定的时间对象
+        // 需要在构造函数中传递一个表示时间的字符串作为参数
+        var date2 = new Date('12/03/2021');
+
+        // this指向的是函数执行的上下文对象
+        // 根据函数的调用方式的不同。this指向的对象也不同
+
+        function foo() {
+            console.log(this);
+        }
+
+        foo();
+
+        var objThis1 = {
+            name: 'NAme',
+            sayName: foo
+        };
+
+        var objThis2 = {
+            name: 'NaMe',
+            sayName: foo
+        };
+
+        console.log(objThis1.sayName === foo) // true
+
+        objThis1.sayName();
+        objThis2.sayName();
+
+        var name = 'window';
+
+
+        function fun() {
+            console.log(name);
+            console.log(this.name);
+        }
+
+        var obj11 = {
+            name: 'obj11',
+            sayName: fun
+        }
+
+        var obj21 = {
+            name: 'obj21',
+            sayName: fun
+        }
+
+        fun(); // window window
+        obj11.sayName(); // window obj11
+        obj21.sayName(); // window obj21
+
+        var name = 'window';
+
+        var person1 = {
+            name: 'person1',
+            show1: function() {
+                console.log(this.name);
+            },
+            show2: () => console.log(this.name),
+            show3: function() {
+                return function() {
+                    console.log(this);
+                }
+            },
+            show4: function() {
+                return () => console.log(this.name);
+            }
+        };
+
+        var person2 = {
+            name: 'person2',
+        };
+
+        //person1.show1(); // person1 // this指向调用方程的对象 因此指向的是person1里的name（如果person1里没有name 结果则是undefined）
+        //person1.show1.call(person2); // person2 // call的作用：改变this的指向
+        
+        //person1.show2(); // window // 因为是箭头函数 剪头函数的this指向与常规函数不同（箭头函数的this总是指向再外一层的对象）箭头函数的this在定义时就决定了且无法再被更改
+        //person1.show2.call(person2); // window
+
+        //person1.show3(); // 什么都不会打印，因为show3()执行后 return 得到的是一个function 但这个function并没有被执行 因此里面的打印语句也不会被执行
+        //person1.show3()(); // window: {...} // var fn = person1.show3(); fn() -> window.fn();
+        //person1.show3().call(person2); // person2: {...} // var fn = person1.show3(); fn.call(person2) -> window.fn.call(person2);
+        //person1.show3.call(person2)(); // window: {...} // var fn = person1.show3.call(person2); fn() -> window.fn();
+
+        person1.show4(); // 不会打印，因为没有执行return后的方程
+        person1.show4()(); // person1 // var fn = person1.show4(); fn() -> person1.fn();
+        person1.show4().call(person2); // person1
+        person1.show4.call(person2)(); // person1 x person2 // var fn = person1.show4.call(person2); fn() -> person2.fn();
+    </script>
+</body>
+</html>
