@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>reference - 继承</title>
+    <script>
+        
+        /** 
+         * 1. 原型链继承 prototype
+         * 优点：父类方法可以复用
+         * 
+         * 2. 构造函数继承
+         * 
+         * 
+         * 3. 组合继承 (原型链+构造函数)
+        */
+
+        // 构造函数
+        function Person() {
+            this.name = 'ming',
+            this.eats = ['apple'],
+            this.getName = () => {
+                console.log(this.name)
+            }
+        }
+
+        Person.prototype.get = () => {
+            console.log('Person.prototype上的方法')
+        }; // 在构造函数中添加原型属性
+
+
+    </script>
+</head>
+<body>
+</body>
+</html>

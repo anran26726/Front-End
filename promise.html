@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>promise</title>
+    <script>
+        // ES6中对promise的理解以及它的实例方法
+        // 是异步编程的一种解决方案
+        // 三种状态：pending fufilled rejected
+
+        // 用法：var p = new Promise(); Promise是一个构造函数，用来生成Promise实例
+        // Promise构造函数接收一个函数作为参数, 这个函数有两个参数resolve reject -> var p = new Promise(function(resolve, reject){})
+        var promise = new Promise(function(resolve, reject) {
+            // resolve函数：将Promise对象的状态从pending变成fufilled，在异步操作成功的时候调用
+            resolve(); // 返回异步操作的结果，作为参数传递出去
+            // reject函数：将Promise对象的状态从pending变成rejected，在异步操作失败的时候调用
+            reject(); // 返回异步操作的结果，作为参数传递出去
+        });
+    </script>
+</head>
+<body>
+</body>
+</html>
